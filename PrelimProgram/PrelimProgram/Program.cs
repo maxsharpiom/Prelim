@@ -731,55 +731,62 @@ namespace FoodCS
             string choice;
             int outletIndex, x, y;
             bool closeCompany;
-            Console.WriteLine("\n*********************************");
-            Console.WriteLine("*******  MODIFY COMPANY   *******");
-            Console.WriteLine("*********************************");
-            Console.WriteLine("1. Open new outlet");
-            Console.WriteLine("2. Close outlet");
-            Console.WriteLine("3. Expand outlet");
-            Console.Write("\nEnter your choice: ");
-            choice = Console.ReadLine();
-            if (choice == "2" || choice == "3")
+            do
             {
-                Console.Write("Enter ID of outlet: ");
-                outletIndex = Convert.ToInt32(Console.ReadLine());
-                if (outletIndex > 0 && outletIndex <= companies[index].GetNumberOfOutlets())
+                Console.WriteLine("\n*********************************");
+                Console.WriteLine("*******  MODIFY COMPANY   *******");
+                Console.WriteLine("*********************************");
+                Console.WriteLine("1. Open new outlet");
+                Console.WriteLine("2. Close outlet");
+                Console.WriteLine("3. Expand outlet");
+                Console.WriteLine("C. Cancel");
+                Console.Write("\nEnter your choice: ");
+                choice = Console.ReadLine();
+                if (choice == "2" || choice == "3")
                 {
-                    if (choice == "2")
+                    Console.Write("Enter ID of outlet: ");
+                    outletIndex = Convert.ToInt32(Console.ReadLine());
+                    if (outletIndex > 0 && outletIndex <= companies[index].GetNumberOfOutlets())
                     {
-                        closeCompany = companies[index].CloseOutlet(outletIndex - 1);
-                        if (closeCompany)
+                        if (choice == "2")
                         {
-                            Console.WriteLine("That company has now closed down as it has no outlets.");
-                            companies.RemoveAt(index);
+                            closeCompany = companies[index].CloseOutlet(outletIndex - 1);
+                            if (closeCompany)
+                            {
+                                Console.WriteLine("That company has now closed down as it has no outlets.");
+                                companies.RemoveAt(index);
+                            }
+                        }
+                        else
+                        {
+                            companies[index].ExpandOutlet(outletIndex - 1);
                         }
                     }
                     else
                     {
-                        companies[index].ExpandOutlet(outletIndex - 1);
+                        Console.WriteLine("Invalid outlet ID.");
                     }
                 }
-                else
+                else if (choice == "1")
                 {
-                    Console.WriteLine("Invalid outlet ID.");
+                    Console.Write("Enter X coordinate for new outlet: ");
+                    x = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Enter Y coordinate for new outlet: ");
+                    y = Convert.ToInt32(Console.ReadLine());
+                    if (x >= 0 && x < simulationSettlement.GetXSize() && y >= 0 && y < simulationSettlement.GetYSize())
+                    {
+                        companies[index].OpenOutlet(x, y);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid coordinates.");
+                    }
                 }
-            }
-            else if (choice == "1")
-            {
-                Console.Write("Enter X coordinate for new outlet: ");
-                x = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Enter Y coordinate for new outlet: ");
-                y = Convert.ToInt32(Console.ReadLine());
-                if (x >= 0 && x < simulationSettlement.GetXSize() && y >= 0 && y < simulationSettlement.GetYSize())
+                else if (choice == "C")
                 {
-                    companies[index].OpenOutlet(x, y);
+                    Console.WriteLine("Operation Cancelled");
                 }
-                else
-                {
-                    Console.WriteLine("Invalid coordinates.");
-                }
-            }
-            Console.WriteLine();
+            } while (choice != "1" || choice != "2" || choice != "3" || choice != "C");
         }
 
         public void DisplayCompanies()
