@@ -81,6 +81,25 @@ namespace FoodCS
         {
             x = Convert.ToInt32(rnd.NextDouble() * xSize);
             y = Convert.ToInt32(rnd.NextDouble() * ySize);
+            while (CheckLocationOccupied(x, y)) //May cause issues as x and y are used in two different contexts
+            {
+                GetRandomLocation(ref x, ref y);
+            }
+        }
+
+        public bool CheckLocationOccupied(int x, int y)
+        {
+            bool occupied = false;
+
+            foreach (var item in households)
+            {
+                if (item.GetX() == x && item.GetY() == y)
+                {
+                    occupied = true;
+                }
+            }
+
+            return occupied;
         }
 
         public void CreateHouseholds()
