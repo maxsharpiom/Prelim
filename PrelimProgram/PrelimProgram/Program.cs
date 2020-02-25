@@ -728,7 +728,7 @@ namespace FoodCS
 
         public void ModifyCompany(int index)
         {
-            string choice;
+            string choice = "";
             int outletIndex, x, y;
             bool closeCompany;
             do
@@ -786,7 +786,9 @@ namespace FoodCS
                 {
                     Console.WriteLine("Operation Cancelled");
                 }
-            } while (choice != "1" || choice != "2" || choice != "3" || choice != "C");
+
+
+            } while (choice != "C");
         }
 
         public void DisplayCompanies()
