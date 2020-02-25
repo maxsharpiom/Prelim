@@ -236,6 +236,12 @@ namespace FoodCS
             details += maxCapacity.ToString() + "      Daily Costs: " + dailyCosts.ToString() + "      Visits today: " + visitsToday.ToString();
             return details;
         }
+
+        public void ExtendCapacity(int multiplier)
+        {
+            this.maxCapacity = this.maxCapacity * multiplier;
+        }
+
     }
 
     class Company
@@ -400,6 +406,10 @@ namespace FoodCS
             int change, result;
             Console.Write("Enter amount you would like to expand the capacity by: ");
             change = Convert.ToInt32(Console.ReadLine());
+            if (change > outlets[ID].)
+            {
+
+            }
             result = outlets[ID].AlterCapacity(change);
             if (result == change)
             {
