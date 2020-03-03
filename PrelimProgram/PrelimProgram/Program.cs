@@ -8,7 +8,6 @@ using System.Collections.Generic;
 
 namespace FoodCS
 {
-
     class Household
     {
         private static Random rnd = new Random();
